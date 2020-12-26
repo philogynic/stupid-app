@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import "../node_modules/bulma/css/bulma.css"
+import Landing from './components/Landing'
+import LoggedIn from './components/LoggedIn';
+import SignIn from "./components/SignIn";
+import SignUp from './components/SignUp';
 
-function App() {
+import firebase from 'firebase/app';
+import AuthContextProvider from './contexts/AuthContext';
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDKBTsk8kt5CJsmF5WLmxNp-h-2tDIZWtE",
+  authDomain: "stupid-bank-demo.firebaseapp.com",
+  projectId: "stupid-bank-demo",
+  storageBucket: "stupid-bank-demo.appspot.com",
+  messagingSenderId: "350867621122",
+  appId: "1:350867621122:web:c9f17f0c1bde2ddccd2e1b"
+})
+
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/login' component={SignIn} />
+            <Route exact path='/daftar' component={SignUp} />
+            <Route exact path='/loggedin' component={LoggedIn} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </AuthContextProvider>
+    
   );
 }
 
