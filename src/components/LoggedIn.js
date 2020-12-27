@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {AuthContext} from '../contexts/AuthContext'
-import {Redirect, Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 const LoggedIn = () => {
     const {user, logOut} = useContext(AuthContext)
