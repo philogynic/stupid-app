@@ -7,6 +7,10 @@ import SignUp from './components/SignUp';
 
 import firebase from 'firebase/app';
 import AuthContextProvider from './contexts/AuthContext';
+import UserDashboard from './components/UserDashboard';
+import UserContextProvider from './contexts/UserContext';
+import TransactionDashboard from './components/TransactionDashboard';
+import TransactionContextProvider from './contexts/TransactionContext';
 
 firebase.initializeApp({
   apiKey: "AIzaSyDKBTsk8kt5CJsmF5WLmxNp-h-2tDIZWtE",
@@ -22,16 +26,22 @@ firebase.initializeApp({
 const App = () => {
   return (
     <AuthContextProvider>
-      <BrowserRouter>
-        <div className="App">
-          <Switch>
-            <Route exact path='/' component={Landing} />
-            <Route exact path='/login' component={SignIn} />
-            <Route exact path='/daftar' component={SignUp} />
-            <Route exact path='/loggedin' component={LoggedIn} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <UserContextProvider>
+        <TransactionContextProvider>
+          <BrowserRouter>
+            <div className="App">
+              <Switch>
+                <Route exact path='/' component={Landing} />
+                <Route exact path='/login' component={SignIn} />
+                <Route exact path='/daftar' component={SignUp} />
+                <Route exact path='/loggedin' component={LoggedIn} />
+                <Route exact path='/dashboard/users' component={UserDashboard}/>
+                <Route exact path='/dashboard/transactions' component={TransactionDashboard}/>
+              </Switch>
+            </div>
+          </BrowserRouter>
+        </TransactionContextProvider>
+      </UserContextProvider>
     </AuthContextProvider>
     
   );
