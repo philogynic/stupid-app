@@ -12,7 +12,7 @@ const TransactionDashboard = () => {
 
                 {transactions.map(transaction => {
                     return (
-                        <p>{transaction.user_id}</p>
+                        <p>{transaction.amount}</p>
                     )
                 })}
                 
