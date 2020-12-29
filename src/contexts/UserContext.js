@@ -1,16 +1,24 @@
-import React, {useState, createContext} from 'react'
-
+import React, {useState, useEffect, createContext} from 'react'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export const UserContext = createContext()
 
 
 const UserContextProvider = (props) => {
-    const [users, setUsers] = useState(
-        [
-            {user_id: 1, user_name: 'chbimo', total_balance: 275000, last_transaction_timestamp: Date.now()},
-            {user_id: 2, user_name: 'diana', total_balance: 27500, last_transaction_timestamp: Date.now()}
-        ]
-    )
+    const [users, setUsers] = useState([])
+
+    const db = firebase.firestore()
+
+    useEffect(() => {
+        db.collection('users').onSnapshot((snapshot) => {
+            const db_users = snapshot.docs.map((doc) => {
+                return doc.data()
+            })
+            setUsers(db_users)
+        })
+
+    }, [db])
 
     return (
         <UserContext.Provider value={{users}}>

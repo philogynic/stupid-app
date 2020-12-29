@@ -1,5 +1,6 @@
-import React, {useState, createContext} from 'react'
-
+import React, {useState, createContext, useEffect} from 'react'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 
 export const TransactionContext = createContext()
 
@@ -12,8 +13,28 @@ const TransactionContextProvider = (props) => {
         ]
     )
 
+    const db = firebase.firestore()
+    
+    useEffect(() => {
+        db.collection('transactions').onSnapshot((snapshot) => {
+            setTransactions(snapshot.docs.map(doc => {
+                return doc.data()
+            }))
+        })
+        
+    }, [db])
+
+    const createTransaction = (transaction, user) => {
+        db.collection('transactions').add({
+            ...transaction,
+            user_id: user.uid,
+            createdAt: new Date()
+        })
+    }
+
+
     return (
-        <TransactionContext.Provider value={{transactions}}>
+        <TransactionContext.Provider value={{transactions, createTransaction}}>
             {props.children}
         </TransactionContext.Provider>
     )

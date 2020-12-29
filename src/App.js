@@ -11,6 +11,10 @@ import UserDashboard from './components/UserDashboard';
 import UserContextProvider from './contexts/UserContext';
 import TransactionDashboard from './components/TransactionDashboard';
 import TransactionContextProvider from './contexts/TransactionContext';
+import ProfileBalance from './components/ProfileBalance';
+import ProfileUser from './components/ProfileUser';
+import Tarik from './components/Tarik';
+import TopUp from './components/TopUp';
 
 firebase.initializeApp({
   apiKey: "AIzaSyDKBTsk8kt5CJsmF5WLmxNp-h-2tDIZWtE",
@@ -37,6 +41,10 @@ const App = () => {
                 <Route exact path='/loggedin' component={LoggedIn} />
                 <Route exact path='/dashboard/users' component={UserDashboard}/>
                 <Route exact path='/dashboard/transactions' component={TransactionDashboard}/>
+                <Route exact path='/profile/balance' component={ProfileBalance}/>
+                <Route exact path='/profile/user' component={ProfileUser} />
+                <Route exact path='/tarik' component={Tarik} />
+                <Route exact path='/topup' component={TopUp} />
               </Switch>
             </div>
           </BrowserRouter>
